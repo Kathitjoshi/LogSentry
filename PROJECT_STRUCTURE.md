@@ -3,7 +3,7 @@
 Current directory structure of the Distributed Log Analyzer project (after cleanup).
 
 ```
-distributed-log-analyzer-FINAL/
+LogSentry/
 │
 ├── Documentation Files
 │   ├── README.md                       # Main project documentation
