@@ -15,7 +15,7 @@ A production-ready distributed system for real-time log analysis featuring ML-po
 
 ### Option 1: Docker Compose (Easiest - 1 Command)
 ```bash
-cd distributed-log-analyzer-FINAL
+cd LogSentry
 docker-compose up --build
 ```
 Access dashboard at **http://localhost:5000**
