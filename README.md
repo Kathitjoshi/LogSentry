@@ -110,4 +110,4 @@ pytest --cov  # With coverage
 
 **Tech**: Python • RabbitMQ • Flask • scikit-learn • Docker  
 **Author**: Kathit Joshi
-**License**: MIT
+
