@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: log_rabbitmq
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - log_network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Log Processor
+  log-processor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.processor
+    container_name: log_processor
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+      KVSTORE_HOST: kvstore
+      KVSTORE_PORT: 8080
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - ./config:/app/config:ro
+      - ./log-processor:/app/log-processor
+      - processor_data:/app/data
+    networks:
+      - log_network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Web Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    container_name: log_dashboard
+    ports:
+      - "5000:5000"
+    environment:
+      KVSTORE_HOST: kvstore
+      KVSTORE_PORT: 8080
+      FLASK_ENV: production
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - ./config:/app/config:ro
+      - ./dashboard:/app/dashboard
+      - processor_data:/app/data
+    networks:
+      - log_network
+    restart: unless-stopped
+
+  # Sample Log Producer
+  log-producer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.producer
+    container_name: log_producer
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+      APP_NAME: web-server
+      LOG_RATE: 5
+      PYTHONUNBUFFERED: 1
+    networks:
+      - log_network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  log_network:
+    driver: bridge
+
+volumes:
+  rabbitmq_data:
+  processor_data:

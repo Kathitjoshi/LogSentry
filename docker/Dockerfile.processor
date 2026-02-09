@@ -1,0 +1,21 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy and install requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY log-processor /app/log-processor
+COPY config /app/config
+
+# Create data directory
+RUN mkdir -p /app/data
+
+# Set Python path
+ENV PYTHONPATH=/app/log-processor/src:/app/log-processor
+
+WORKDIR /app/log-processor
+
+CMD ["python", "src/processor.py"]

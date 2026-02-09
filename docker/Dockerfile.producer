@@ -1,0 +1,17 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy and install requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy producer code
+COPY log-producers /app/log-producers
+
+WORKDIR /app/log-producers
+
+# Use environment variable to choose which producer to run
+ENV APP_SCRIPT=sample_web_app.py
+
+CMD python ${APP_SCRIPT}

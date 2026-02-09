@@ -1,0 +1,67 @@
+# KV Store Configuration
+kvstore:
+  data_dir: ./data
+  host: localhost
+  port: 8080
+  memtable_size_mb: 64
+  cache_size_mb: 128
+  compaction_threshold: 4
+  enable_compression: true
+  enable_bloom_filter: true
+
+# RabbitMQ Configuration
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin123
+  queue_name: logs
+  exchange_name: logs_exchange
+  prefetch_count: 100
+
+# ML Configuration
+ml:
+  model_path: ./log-processor/ml/models
+  contamination: 0.1
+  n_estimators: 100
+  retrain_interval_seconds: 3600
+  batch_size: 1000
+  features:
+    - log_level
+    - message_length
+    - error_rate
+    - time_of_day
+    - service_name
+
+# Dashboard Configuration
+dashboard:
+  host: 0.0.0.0
+  port: 5000
+  secret_key: change-this-in-production-please
+  refresh_interval_ms: 5000
+
+# Alerting Configuration
+alerting:
+  enabled: true
+  email:
+    enabled: false
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    from_address: alerts@example.com
+    to_addresses:
+      - admin@example.com
+    username: your-email@gmail.com
+    password: your-app-password
+  webhook:
+    enabled: true
+    url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+  thresholds:
+    anomaly_score: 0.7
+    error_rate: 0.1
+    alert_cooldown_seconds: 300
+
+# Logging Configuration
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: application.log

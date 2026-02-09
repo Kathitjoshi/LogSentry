@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Analyzer Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Distributed Log Analyzer</h1>
+            <p>Real-time log monitoring with ML anomaly detection</p>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Logs</h3>
+                <p id="total-logs" class="stat-value">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Anomalies</h3>
+                <p id="total-anomalies" class="stat-value anomaly">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Cache Hit Rate</h3>
+                <p id="cache-hit-rate" class="stat-value">0%</p>
+            </div>
+            <div class="stat-card">
+                <h3>Storage Size</h3>
+                <p id="storage-size" class="stat-value">0 MB</p>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>Log Levels Over Time</h2>
+                <canvas id="logLevelChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h2>Anomaly Detection Timeline</h2>
+                <canvas id="anomalyChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="tables-container">
+            <div class="table-box">
+                <h2>Recent Logs</h2>
+                <div class="table-scroll">
+                    <table id="logs-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Level</th>
+                                <th>Service</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="table-box">
+                <h2>Detected Anomalies</h2>
+                <div class="table-scroll">
+                    <table id="anomalies-table">
+                        <thead>
+                            <tr>
+                                <th>Detected At</th>
+                                <th>Service</th>
+                                <th>Message</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="anomalies-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
