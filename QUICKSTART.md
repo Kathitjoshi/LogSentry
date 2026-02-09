@@ -8,7 +8,7 @@ Get the Distributed Log Analyzer running in **2 minutes** with Docker!
 
 ### Step 1: Clone/Navigate to Project
 ```bash
-cd distributed-log-analyzer-FINAL
+cd LogSentry
 ```
 
 ### Step 2: Start Everything (ONE COMMAND)
