@@ -24,7 +24,7 @@
 ## Directory Structure
 
 ```
-distributed-log-analyzer-FINAL/
+LogSentry/
 ├── README.md                    ← Project overview
 ├── QUICK_START_FIXED.md         ← 3-step quick start (NEW)
 ├── CHANGES.md                   ← What was fixed (NEW)
@@ -314,8 +314,8 @@ distributed-log-analyzer-FINAL/
 
 ```bash
 # Extract and verify
-tar -xzf distributed-log-analyzer-FINAL.tar.gz
-cd distributed-log-analyzer-FINAL
+tar -xzf LogSentry.tar.gz
+cd LogSentry
 
 # Count Python files (should be 30+)
 find . -name "*.py" | wc -l
