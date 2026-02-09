@@ -1,6 +1,6 @@
 # Distributed Log Analyzer with ML Anomaly Detection
 
-A production-ready distributed system for real-time log analysis featuring ML-powered anomaly detection, scalable message processing with RabbitMQ, and a web-based monitoring dashboard.
+A  distributed system for real-time log analysis featuring ML-powered anomaly detection, scalable message processing with RabbitMQ, and a web-based monitoring dashboard.
 
 ## Quick Overview (ELI5)
 
